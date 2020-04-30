@@ -8,5 +8,5 @@ A Discord bot used for social purposes.
 
 DSharpPlus NuGet Package
 
-VS 2019: "Cross-platform development with .NET Core" workload
+VS 2019: "Cross-platform development with .NET Core" workload <br>
 VS Code: C# extension
