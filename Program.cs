@@ -49,6 +49,11 @@ namespace QwerzenBot
                 discord.MessageCreated += async e =>
                 {
                     string msg = e.Message.Content.ToLower();
+
+                    if (msg.StartsWith("qwerzen, enter echo mode"))
+                    {
+                        inEchoMode = true;
+                    }
                     if (inEchoMode == true)
                     {
                         if (msg.StartsWith("qwerzen, exit echo mode"))
@@ -108,7 +113,7 @@ namespace QwerzenBot
                                         break;
                                 }
 
-                                if (isValid) await e.Message.RespondAsync(math[0] + " " + math[1] + " " + math[2] + " is " + result);
+                                if (isValid) await e.Message.RespondAsync(math[1] + " " + math[2] + " " + math[3] + " is " + result);
                             }
                             catch (FormatException)
                             {
@@ -118,51 +123,42 @@ namespace QwerzenBot
                             await e.Message.RespondAsync("Yes? I heard my name?");
                         }
                     }
-<<<<<<< HEAD
                 };
-                    discord.GuildMemberRemoved += async e =>
+                discord.GuildMemberRemoved += async e =>
+                {
+                    int messageID = RandomNumber(5);
+                    string userNickName = e.Member.Nickname;
+
+                    switch (messageID)
                     {
-                        int messageID = RandomNumber(5);
-                        string userNickName = e.Member.Nickname;
+                        case 1:
+                            await discord.SendMessageAsync(null, ("We will miss you, " + userNickName + "."));
+                            break;
 
-                        switch (messageID)
-                        {
-                            case 1:
-                                await discord.SendMessageAsync(null, ("We will miss you, " + userNickName + "."));
-                                break;
+                        case 2:
 
-                            case 2:
+                            break;
 
-                                break;
+                        case 3:
 
-                            case 3:
+                            break;
 
-                                break;
+                        case 4:
 
-                            case 4:
+                            break;
 
-                                break;
+                        case 5:
 
-                            case 5:
+                            break;
 
-                                break;
-
-                            default:
-                                break;
-                        }
-                    };
-=======
-
-                    if (msg.StartsWith("qwerzen, enter echo mode"))
-                    {
-                        inEchoMode = true;
+                        default:
+                            break;
                     }
                 };
->>>>>>> 49267132b52b6fef1bf31625fda8f23be2d697b7
 
-                    await discord.ConnectAsync();
-                    await Task.Delay(-1);
-                }
-            }
+                await discord.ConnectAsync();
+                await Task.Delay(-1);
+            };
         }
     }
+}
