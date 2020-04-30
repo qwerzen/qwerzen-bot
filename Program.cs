@@ -37,10 +37,10 @@ namespace QwerzenBot
 
         static void Main(string[] args)
         {
-            Random rand = new Random();
             MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
             static async Task MainAsync(string[] args)
             {
+                bool inEchoMode = false;
                 discord = new DiscordClient(new DiscordConfiguration
                 {
                     Token = "NzA1MjY4NjcwNTY1NDQ5Nzc5.XqrlWA.Z498SutsI9IdMC8YAnAoTgEKO6g",
@@ -49,6 +49,23 @@ namespace QwerzenBot
                 discord.MessageCreated += async e =>
                 {
                     string msg = e.Message.Content.ToLower();
+                    if (inEchoMode == true)
+                    {
+                        if (msg.StartsWith("qwerzen, exit echo mode"))
+                        {
+                            inEchoMode = false;
+                            return;
+                        }
+                        if (e.Message.Author.IsBot != true)
+                        {
+                            await e.Message.RespondAsync(msg);
+                        }
+                    }
+                    if (msg == "qwerzen, terminate.")
+                    {
+                        await e.Message.RespondAsync("Terminating...");
+                        Environment.Exit(02);
+                    }
                     if (msg.Contains("qwerzen"))
                     {
                         if (msg.Contains("like"))
@@ -60,36 +77,10 @@ namespace QwerzenBot
                         RandomDelay();
                         await e.Message.RespondAsync("Yes? I heard my name?");
                     }
-                };
-                discord.GuildMemberRemoved += async e =>
-                {
-                    int messageID = RandomNumber(5);
-                    string userNickName = e.Member.Nickname;
 
-                    switch (messageID)
+                    if (msg.StartsWith("qwerzen, enter echo mode"))
                     {
-                        case 1:
-                            await discord.SendMessageAsync( null, ("We will miss you, " + userNickName + "."));
-                            break;
-
-                        case 2:
-
-                            break;
-
-                        case 3:
-
-                            break;
-
-                        case 4:
-
-                            break;
-
-                        case 5:
-
-                            break;
-
-                        default:
-                            break;
+                        inEchoMode = true;
                     }
                 };
 
