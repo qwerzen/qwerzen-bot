@@ -43,7 +43,7 @@ namespace QwerzenBot
             {
                 discord = new DiscordClient(new DiscordConfiguration
                 {
-                    Token = "NzA1MjY4NjcwNTY1NDQ5Nzc5.XqppeA.vbaMuoLShDJ9eM9v2Yy9uswYaNE",
+                    Token = "NzA1MjY4NjcwNTY1NDQ5Nzc5.XqrlWA.Z498SutsI9IdMC8YAnAoTgEKO6g",
                     TokenType = TokenType.Bot
                 });
                 discord.MessageCreated += async e =>
