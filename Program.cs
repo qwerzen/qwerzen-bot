@@ -10,7 +10,7 @@ namespace QwerzenBot
 {
     class Program
     {
-    
+
         static DiscordClient discord;
 
         static void RandomDelay()
@@ -57,45 +57,86 @@ namespace QwerzenBot
                             await e.Message.RespondAsync("You better like me.");
                             return;
                         }
-                        RandomDelay();
-                        await e.Message.RespondAsync("Yes? I heard my name?");
+                        else if (msg.Contains("what\'s"))
+                        {
+                            string[] math = msg.Split("what\'s")[1].Split();
+                            bool isValid = true;
+                            int result = 0;
+                            try
+                            {
+                                int num1 = Int32.Parse(math[1]);
+                                int num2 = Int32.Parse(math[3]);
+
+                                switch (math[2])
+                                {
+                                    case "plus":
+                                    case "+":
+                                        result = num1 + num2;
+                                        break;
+                                    case "minus":
+                                    case "-":
+                                        result = num1 - num2;
+                                        break;
+                                    case "times":
+                                    case "*":
+                                        result = num1 - num2;
+                                        break;
+                                    case "divide":
+                                    case "/":
+                                        result = num1 - num2;
+                                        break;
+                                    default:
+                                        await e.Message.RespondAsync("What? This is not a number.");
+                                        isValid = false;
+                                        break;
+                                }
+
+                                if (isValid) await e.Message.RespondAsync(math[0] + " " + math[1] + " " + math[2] + " is " + result);
+                            }
+                            catch (FormatException)
+                            {
+                                await e.Message.RespondAsync("Hey! Those aren't numbers!");
+                            }
+                            RandomDelay();
+                            await e.Message.RespondAsync("Yes? I heard my name?");
+                        }
                     }
                 };
-                discord.GuildMemberRemoved += async e =>
-                {
-                    int messageID = RandomNumber(5);
-                    string userNickName = e.Member.Nickname;
-
-                    switch (messageID)
+                    discord.GuildMemberRemoved += async e =>
                     {
-                        case 1:
-                            await discord.SendMessageAsync( null, ("We will miss you, " + userNickName + "."));
-                            break;
+                        int messageID = RandomNumber(5);
+                        string userNickName = e.Member.Nickname;
 
-                        case 2:
+                        switch (messageID)
+                        {
+                            case 1:
+                                await discord.SendMessageAsync(null, ("We will miss you, " + userNickName + "."));
+                                break;
 
-                            break;
+                            case 2:
 
-                        case 3:
+                                break;
 
-                            break;
+                            case 3:
 
-                        case 4:
+                                break;
 
-                            break;
+                            case 4:
 
-                        case 5:
+                                break;
 
-                            break;
+                            case 5:
 
-                        default:
-                            break;
-                    }
-                };
+                                break;
 
-                await discord.ConnectAsync();
-                await Task.Delay(-1);
+                            default:
+                                break;
+                        }
+                    };
+
+                    await discord.ConnectAsync();
+                    await Task.Delay(-1);
+                }
             }
         }
     }
-}
