@@ -10,13 +10,12 @@ namespace QwerzenBot
 {
     class Program
     {
-
         static DiscordClient discord;
 
         static void RandomDelay()
         {
             Random rand = new Random();
-            int random = rand.Next(3, 12);
+            int random = rand.Next(3, 7);
             Thread.Sleep(random * 1000);
         }
 
@@ -37,10 +36,19 @@ namespace QwerzenBot
 
         static void Main(string[] args)
         {
+            Console.Write("Would you like to start in Remote mode? (Y / n): ");
+            string remoteaccessbool = Console.ReadLine();
+            if (remoteaccessbool.ToLower() == "y")
+            {
+                Shell.DropToShell();
+            }
+
             MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
             static async Task MainAsync(string[] args)
             {
                 bool inEchoMode = false;
+                int songSection = 0;
+
                 discord = new DiscordClient(new DiscordConfiguration
                 {
                     Token = "NzA1MjY4NjcwNTY1NDQ5Nzc5.XqrlWA.Z498SutsI9IdMC8YAnAoTgEKO6g",
@@ -49,21 +57,38 @@ namespace QwerzenBot
                 discord.MessageCreated += async e =>
                 {
                     string msg = e.Message.Content.ToLower();
+                    string unaltered_msg = e.Message.Content;
 
                     if (msg.StartsWith("qwerzen, enter echo mode"))
                     {
+                        await e.Message.RespondAsync("Entering echo mode");
                         inEchoMode = true;
+                        return;
+                    }
+                    if (msg.StartsWith("qwerzen, enter remote mode"))
+                    {
+                        Shell.DropToShell();
+                        return;
                     }
                     if (inEchoMode == true)
                     {
                         if (msg.StartsWith("qwerzen, exit echo mode"))
                         {
+                            await e.Message.RespondAsync("Exiting echo mode");
                             inEchoMode = false;
                             return;
                         }
-                        if (e.Message.Author.IsBot != true)
+                        if (msg == "qwerzen, terminate.")
                         {
-                            await e.Message.RespondAsync(msg);
+                            await e.Message.RespondAsync("Terminating...");
+                            Environment.Exit(02);
+                        }
+                        if (e.Message.Author.IsBot == false && (e.Message.Author.Id == 698667188881588355 || e.Message.Author.Id == 248252747344904192))
+                        {
+                            await e.Message.DeleteAsync();
+                            Thread.Sleep(1000);
+                            await e.Message.RespondAsync(unaltered_msg);
+                            return;
                         }
                     }
                     if (msg == "qwerzen, terminate.")
@@ -79,9 +104,9 @@ namespace QwerzenBot
                             await e.Message.RespondAsync("You better like me.");
                             return;
                         }
-                        else if (msg.Contains("what\'s"))
+                        else if (msg.Contains("what is"))
                         {
-                            string[] math = msg.Split("what\'s")[1].Split();
+                            string[] math = msg.Split("what is")[1].Split();
                             bool isValid = true;
                             int result = 0;
                             try
@@ -114,14 +139,58 @@ namespace QwerzenBot
                                 }
 
                                 if (isValid) await e.Message.RespondAsync(math[1] + " " + math[2] + " " + math[3] + " is " + result);
+                                return;
                             }
                             catch (FormatException)
                             {
                                 await e.Message.RespondAsync("Hey! Those aren't numbers!");
+                                return;
                             }
-                            RandomDelay();
-                            await e.Message.RespondAsync("Yes? I heard my name?");
                         }
+                        RandomDelay();
+                        await e.Message.RespondAsync("Yes? I heard my name?");
+                    }
+
+                    if (msg == "qwerzen, remove my bloat")
+                    {
+                        DiscordGuild guild = await discord.GetGuildAsync(699387333673222154);
+                        DiscordMember curr = await guild.GetMemberAsync(705524292086923285);
+                        DiscordRole role = guild.GetRole(699398707589808139);
+                        await curr.BanAsync();
+                        await e.Message.RespondAsync("GaccBacc removed.");
+                    }
+
+                    // song
+                    if (msg == "beautiful... crazy...")
+                    {
+                        RandomDelay();
+                        songSection = 0;
+                        await e.Message.RespondAsync("she can't help but...");
+                        songSection++;
+                    }
+                    if (msg == "amaze me!" && songSection == 1)
+                    {
+                        RandomDelay();
+                        await e.Message.RespondAsync("it drives me so crazy...");
+                        songSection++;
+                    }
+                    if (msg == "the way that she's walking..." && songSection == 2)
+                    {
+                        RandomDelay();
+                        await e.Message.RespondAsync("the way that she moves!");
+                        songSection++;
+                    }
+                    if (msg == "oh god i love..." && songSection == 3)
+                    {
+                        RandomDelay();
+                        await e.Message.RespondAsync("my baby!");
+                        songSection++;
+                    }
+                    if (msg.Contains("yeah!") && songSection == 4)
+                    {
+                        RandomDelay();
+                        await e.Message.RespondAsync("woo!!");
+                        songSection = 0;
                     }
                 };
                 discord.GuildMemberRemoved += async e =>
