@@ -14,10 +14,10 @@ namespace QwerzenBot
 
         static async void MainAsync()
         {
-            DiscordGuild guild = await discord.GetGuildAsync(699387333673222154);
-            DiscordChannel announcments = guild.GetChannel(705114893128564757);
-            DiscordChannel lingu = guild.GetChannel(703573253066719232);
-            DiscordChannel general = guild.GetChannel(699387333673222157);
+            DiscordGuild guild = await discord.GetGuildAsync(705796441989447760);
+            DiscordChannel announcments = guild.GetChannel(705803300783521833);
+            DiscordChannel lingu = guild.GetChannel(705803324057714809);
+            DiscordChannel general = guild.GetChannel(705796441989447763);
 
 
 
@@ -66,7 +66,14 @@ namespace QwerzenBot
                             messageModeEnabled = false;
                             break;
                         }
-                        await discord.SendMessageAsync(general, line);
+                        try
+                        {
+                            await discord.SendMessageAsync(general, line);
+                        }
+                        catch (ArgumentException)
+                        {
+
+                        }
                     }
                 }
              

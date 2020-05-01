@@ -151,15 +151,6 @@ namespace QwerzenBot
                         await e.Message.RespondAsync("Yes? I heard my name?");
                     }
 
-                    if (msg == "qwerzen, remove my bloat")
-                    {
-                        DiscordGuild guild = await discord.GetGuildAsync(699387333673222154);
-                        DiscordMember curr = await guild.GetMemberAsync(705524292086923285);
-                        DiscordRole role = guild.GetRole(699398707589808139);
-                        await curr.BanAsync();
-                        await e.Message.RespondAsync("GaccBacc removed.");
-                    }
-
                     // song
                     if (msg == "beautiful... crazy...")
                     {
@@ -193,15 +184,15 @@ namespace QwerzenBot
                         songSection = 0;
                     }
                 };
-                discord.GuildMemberRemoved += async e =>
+                // discord.GuildMemberRemoved += async e =>
                 {
                     int messageID = RandomNumber(5);
-                    string userNickName = e.Member.Nickname;
+                //    string userNickName = e.Member.Nickname;
 
                     switch (messageID)
                     {
                         case 1:
-                            await discord.SendMessageAsync(null, ("We will miss you, " + userNickName + "."));
+                  //          await discord.SendMessageAsync(null, ("We will miss you, " + userNickName + "."));
                             break;
 
                         case 2:
