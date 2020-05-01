@@ -19,6 +19,8 @@ namespace QwerzenBot
             DiscordChannel lingu = guild.GetChannel(703573253066719232);
             DiscordChannel general = guild.GetChannel(699387333673222157);
 
+
+
             string vwd = "/"; // virtual working directory
             bool? messageModeEnabled = null;
             if (messageModeEnabled != true) { Console.Write("remote@qwerzen:" + vwd + "$ "); }
@@ -57,16 +59,14 @@ namespace QwerzenBot
                     messageModeEnabled = true;
                     while (9 == 9)
                     {
-                        if ((line = Console.ReadLine()) != "exit") 
+                        Console.Write("general: ");
+                        line = Console.ReadLine();
+                        if (line == "exit")
                         {
                             messageModeEnabled = false;
                             break;
                         }
-                        else
-                        {
-                            Console.Write("general: ");
-                            await discord.SendMessageAsync(general, line);
-                        }
+                        await discord.SendMessageAsync(general, line);
                     }
                 }
              
@@ -77,7 +77,7 @@ namespace QwerzenBot
                 return;
             }
 
-            MainAsync();
+            MainAsync(); // haha recursion
             return;
         }
 
@@ -89,10 +89,10 @@ namespace QwerzenBot
                 TokenType = TokenType.Bot
             });
 
-            Thread inputEval = new Thread(MainAsync);
             Thread messages = new Thread(new ParameterizedThreadStart(getMessages));
-            inputEval.Start();
+
             messages.Start();
+            MainAsync();
         }
 
         static void getMessages(object args)
