@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30021.99
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QwerzenBot", "QwerzenBot.csproj", "{9BB09923-0BC5-4201-AD95-EFE853626CD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QwerzenBot", "..\qwerzen-bot\QwerzenBot.csproj", "{AB890AAE-696C-4F96-A209-509EF84BB0D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BB09923-0BC5-4201-AD95-EFE853626CD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BB09923-0BC5-4201-AD95-EFE853626CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BB09923-0BC5-4201-AD95-EFE853626CD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BB09923-0BC5-4201-AD95-EFE853626CD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB890AAE-696C-4F96-A209-509EF84BB0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB890AAE-696C-4F96-A209-509EF84BB0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB890AAE-696C-4F96-A209-509EF84BB0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB890AAE-696C-4F96-A209-509EF84BB0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32EC53A8-2F62-4D68-9278-6B505A30B73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32EC53A8-2F62-4D68-9278-6B505A30B73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32EC53A8-2F62-4D68-9278-6B505A30B73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32EC53A8-2F62-4D68-9278-6B505A30B73C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

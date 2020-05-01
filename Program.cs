@@ -6,6 +6,7 @@ using Microsoft.VisualBasic;
 using DSharpPlus.Entities;
 using System.Xml.XPath;
 
+
 namespace QwerzenBot
 {
     class Program
@@ -54,6 +55,12 @@ namespace QwerzenBot
                     Token = "NzA1MjY4NjcwNTY1NDQ5Nzc5.XqrlWA.Z498SutsI9IdMC8YAnAoTgEKO6g",
                     TokenType = TokenType.Bot
                 });
+
+                discord.Ready += async e =>
+                {
+                    await discord.SendMessageAsync(await discord.GetChannelAsync(705796441989447763), "Qwerzen online.");
+                };
+
                 discord.MessageCreated += async e =>
                 {
                     string msg = e.Message.Content.ToLower();
@@ -83,7 +90,7 @@ namespace QwerzenBot
                             await e.Message.RespondAsync("Terminating...");
                             Environment.Exit(02);
                         }
-                        if (e.Message.Author.IsBot == false && (e.Message.Author.Id == 698667188881588355 || e.Message.Author.Id == 248252747344904192))
+                        if (e.Message.Author.IsBot == false && (e.Message.Author.Id == 705799634894848011 || e.Message.Author.Id == 248252747344904192))
                         {
                             await e.Message.DeleteAsync();
                             Thread.Sleep(1000);
