@@ -52,7 +52,7 @@ namespace QwerzenBot
 
                 discord = new DiscordClient(new DiscordConfiguration
                 {
-                    Token = "NzA1MjY4NjcwNTY1NDQ5Nzc5.XqrlWA.Z498SutsI9IdMC8YAnAoTgEKO6g",
+                    Token = "<token>",
                     TokenType = TokenType.Bot
                 });
 
